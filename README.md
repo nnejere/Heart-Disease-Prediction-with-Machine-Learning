@@ -74,6 +74,15 @@ Based on published notes from the dataset, entries containing invalid values (e.
 
 ---
 
+### 🛑 Baseline Vs. Tuned Models Summary
+
+The consistent outperformance of baseline models, particularly the ensemble classifiers **(Random Forest and XGBoost)**, confirms that aggressive hyperparameter optimization was counterproductive for this project.
+
+1.  **Small Dataset Overfitting:** The primary cause is **overfitting** to the cross-validation (CV) folds within the limited training data ($N \approx 250$). The grid search found parameter combinations that were highly specific to the noise of the small folds, failing to generalize to the unseen test set.
+2.  **Robust Default Settings:** The default parameters in scikit-learn are often designed to provide a good level of regularization and generalize well across diverse datasets. For Random Forest, the default settings created enough ensemble diversity (low variance) to capture patterns effectively.
+3.  **Data Simplicity:** The fact that the Baseline Logistic Regression achieved the best ROC AUC (0.873) suggests the key relationships between the preprocessed features and the target are predominantly **linear or simple**, rendering the complexity introduced by tuning deep, non-linear ensemble models unnecessary and harmful.
+
+---
 ## 🧪 Exploratory Data Analysis (EDA) Insights
 
 The EDA phase was critical in uncovering the strongest predictors, many of which confirm clinical expectations:
